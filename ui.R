@@ -56,12 +56,19 @@ ui <- dashboardPage(
                   tabsetPanel(
                     tabPanel(title = 'Inputs',
                              wellPanel(
-                               textInput(inputId = 'my_input', label = 'Input', width = '200px', placeholder = 'Enter text here'),
-                               actionButton(inputId = 'button1',label = 'Github',icon = icon('github')),
+                               p('Inputs'),
+                               selectInput(inputId = 'input1',
+                                           label = 'Select input',
+                                           choices = c('Option 1','Option 2','Option 3'),
+                                           multiple = T,
+                                           width = '200px'),
+                               actionButton(inputId = 'button1',label = 'Github',icon = icon('github')
+                               )
                              )),
                     
                     tabPanel(title = 'Outputs',
                              wellPanel(
+                               p('Outputs'),
                                plotlyOutput(outputId = 'my_output')
                              ))
                   )
