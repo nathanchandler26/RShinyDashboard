@@ -1,6 +1,8 @@
 ################################################################################
 # define the server function
 
+load("data/unique_cpc_group.Rdata")
+
 server <- function(input,output,session) {
 
     observeEvent(input$cpc_button, {
