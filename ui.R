@@ -53,6 +53,13 @@ ui <- dashboardPage(
 
         tabItems(
           tabItem(tabName = 'home',
+                  title = 'Welcome to the Patent Analytics dashboard!',
+                  wellPanel(
+                    p('Please wait as the dataset loads', id = 'waiting_text'),
+                    withSpinner(
+                      uiOutput("load_dataset")
+                    )
+                  )
 
           ),
           tabItem(tabName = 'competition',
@@ -61,19 +68,20 @@ ui <- dashboardPage(
                     tabPanel(title = 'Inputs',
                              wellPanel(
                                p('Inputs'),
-                               selectInput(inputId = 'input1',
-                                           label = 'Select input',
-                                           choices = choices,
+                               selectInput(inputId = 'cpc_input',
+                                           label = 'Please select CPC code:',
+                                           choices = c('Option 1','Option 2','Option 3'),
                                            multiple = T,
                                            width = '200px'),
-                               actionButton(inputId = 'button1',label = 'Github',icon = icon('github')
+                               actionButton(inputId = 'cpc_button',label = 'Search',icon = icon('search')
                                )
                              )),
                     
                     tabPanel(title = 'Outputs',
                              wellPanel(
-                               p('Outputs'),
-                               plotlyOutput(outputId = 'my_output')
+                               withSpinner(
+                                 textOutput(outputId = 'output_text')
+                               )
                              ))
                   )
           ),

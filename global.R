@@ -4,7 +4,8 @@ library(shinythemes)
 library(shinydashboard)
 library(plotly)
 library(bslib)
-
+library(shinycssloaders)
+library(data.table)
 # Resources
 # https://shiny.rstudio.com/
 # https://shiny.rstudio.com/gallery/
