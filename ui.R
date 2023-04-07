@@ -6,6 +6,10 @@ library(fresh)
 # This creates a web page -- organized into rows and columns 
 # There are 12 parts in each row
 
+load("data/unique_cpc_group.Rdata")
+choices <- unique_cpc_group
+
+
 # Create the theme
 mytheme <- create_theme(
   adminlte_color(
@@ -59,7 +63,7 @@ ui <- dashboardPage(
                                p('Inputs'),
                                selectInput(inputId = 'input1',
                                            label = 'Select input',
-                                           choices = c('Option 1','Option 2','Option 3'),
+                                           choices = choices,
                                            multiple = T,
                                            width = '200px'),
                                actionButton(inputId = 'button1',label = 'Github',icon = icon('github')
