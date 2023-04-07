@@ -60,9 +60,8 @@ ui <- dashboardPage(
                   tabsetPanel(
                     tabPanel(title = 'Inputs',
                              wellPanel(
-                               p('Inputs'),
                                selectInput(inputId = 'input1',
-                                           label = 'Select input',
+                                           label = 'Select Input',
                                            choices = choices,
                                            multiple = T,
                                            width = '200px'),
