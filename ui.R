@@ -70,7 +70,7 @@ ui <- dashboardPage(
                                p('Inputs'),
                                selectInput(inputId = 'cpc_input',
                                            label = 'Please select CPC code:',
-                                           choices = c('Option 1','Option 2','Option 3'),
+                                           choices = choices,#c('Option 1','Option 2','Option 3'),
                                            multiple = T,
                                            width = '200px'),
                                actionButton(inputId = 'cpc_button',label = 'Search',icon = icon('search')
