@@ -10,20 +10,33 @@ server <- function(input, output, session) {
       print(paste0("CPC ", input$cpc_input, " has been selected"))
     })
   })
-  load_dataset <- function(){
-    
-    term <- fread('~/g_us_term_of_grant_2012_2021.csv')
-    patent <- fread('~/g_patent_2012_2021.csv')
-    assignee <- fread('~/g_assignee_disambiguated_2012_2021.csv')
-    location <- fread('~g_location_disambiguated_2012_2021.csv')
-    cpc <- fread('~/g_cpc_current_2012_2021.csv')
-    updateTabItems(session, "home", "waiting_text", "Dataset loaded! We're ready for you.")
-  }
+  #reactive value for cpc
+  cpc <- reactiveValues(cpc_data = data.frame() )
   
+  observeEvent(input$load_all_data, {
+    output$loading_start <- renderPlot({
+      withProgress({
+        setProgress(10 / 100, message = "Loading Patent Data...")
+        patent <- read_feather('data/g_patent_2012_2021.feather')
+        setProgress(40 / 100, message = "Loading Assignee Data...")
+        assignee <- read_feather('data/g_assignee_disambiguated_2012_2021.feather')
+        setProgress(60 / 100, message = "Loading Location Data...")
+        location <- read_feather('data/g_location_disambiguated_2012_2021.feather')
+        setProgress(80 / 100, message = "Loading CPC...")
+        cpc_data <- fread('data/g_cpc_current_2012_2021.csv')
+        print("Data loaded")
+        cpc_data$patent_id <- as.character(cpc_data$patent_id)
+        print("Filter done")
+        cpc$cpc_data <- cpc_data
+        
+        setProgress(100 / 100, message = "Done...")
+        output$data_status <- renderText({
+          print(paste("Data loaded"))
+        })
+      })
+    })
+  })
   
-  competitive_analysis_result <- function(cpc_code){
-    
-  }
   
   output$competition_table <- renderTable({
     competition$dt
@@ -34,6 +47,7 @@ server <- function(input, output, session) {
   
   observeEvent(input$generate_competitive_positioning, {
     # Filter the cpc codes
+    req(cpc$cpc_data())
     dt <- cpc %>% filter(grepl(pattern = paste(input$market_cpcs_input, sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T))
     dt <- merge(dt, patent, by = 'patent_id')
     dt <- merge(dt, assignee, by = 'patent_id')
@@ -108,7 +122,7 @@ server <- function(input, output, session) {
   
   state_data <- reactive({
     req(input$market_cpcs_input)
-    
+    req(cpc$cpc_data())
     # Filter the cpc codes
     dt <- cpc %>% filter(grepl(pattern = paste(input$market_cpcs_input, sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T)) %>% select(patent_id) %>% unique()
     dt <- merge(dt, patent, by = 'patent_id')
