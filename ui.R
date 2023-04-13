@@ -56,10 +56,7 @@ ui <- dashboardPage(
         tabName = 'home',
         title = 'Welcome to the Patent Analytics dashboard!',
         wellPanel(
-          p('Please wait as the dataset loads', id = 'waiting_text'),
-          withSpinner(
-            uiOutput("load_dataset")
-          )
+          p('Please wait as the dataset loads', id = 'waiting_text')
         )
       ),
       tabItem(
