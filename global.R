@@ -29,3 +29,14 @@ choices <- unique_cpc_group
 # Each analysis page needs a place for inputs and a place for outouts (charts)
 # Inputs: 3 text inputs and 1 action button
 # Outputs: blank for now, just give it a title
+
+
+
+# patent <- fread('data/g_patent_2012_2021.csv')
+# write_feather(patent, 'data/g_patent_2012_2021.feather')
+# # disambiguated assignee (company name)
+# assignee <- fread('data/g_assignee_disambiguated_2012_2021.csv')
+# write_feather(assignee, 'data/g_assignee_disambiguated_2012_2021.feather')
+# # term grant (expiration date)
+# location <- fread('~/490R Files/g_location_disambiguated_2012_2021.csv')
+# write_feather(location,'data/g_location_disambiguated_2012_2021.feather')
