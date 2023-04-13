@@ -10,21 +10,7 @@ server <- function(input, output, session) {
       print(paste0("CPC ", input$cpc_input, " has been selected"))
     })
   })
-  load_dataset <- function(){
-    
-    term <- fread('~/g_us_term_of_grant_2012_2021.csv')
-    patent <- fread('~/g_patent_2012_2021.csv')
-    assignee <- fread('~/g_assignee_disambiguated_2012_2021.csv')
-    location <- fread('~g_location_disambiguated_2012_2021.csv')
-    cpc <- fread('~/g_cpc_current_2012_2021.csv')
-    updateTabItems(session, "home", "waiting_text", "Dataset loaded! We're ready for you.")
-  }
-  
-  
-  competitive_analysis_result <- function(cpc_code){
-    
-  }
-  
+
   output$competition_table <- renderTable({
     competition$dt
   })

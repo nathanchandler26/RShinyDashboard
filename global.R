@@ -26,3 +26,11 @@ cpc$patent_id <- as.character(cpc$patent_id)
 # Each analysis page needs a place for inputs and a place for outouts (charts)
 # Inputs: 3 text inputs and 1 action button
 # Outputs: blank for now, just give it a title
+# 
+# ###############################creating feather files###########################
+# assignee <- fread('data/g_assignee_disambiguated_2012_2021.csv')
+# location <- fread('data/g_location_disambiguated_2012_2021.csv')
+# patent <- fread('data/g_patent_2012_2021.csv')
+# write_feather(assignee,'data/g_assignee_disambiguated_2012_2021.feather')
+# write_feather(location,'data/g_location_disambiguated_2012_2021.feather')
+# write_feather(patent,'data/g_patent_2012_2021.feather')
