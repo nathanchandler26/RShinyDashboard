@@ -41,7 +41,6 @@ ui <- dashboardPage(
         sidebarMenu(
           menuItem(text = 'Home',tabName = 'home'),
           menuItem(text = 'Analyses',tabName = 'analysis',
-                   menuSubItem('Competition',tabName = 'competition'),
                    menuSubItem('Top 10 Organizations',tabName = 'top10'),
                    menuSubItem('Number of Patents by State', tabName = 'states')
                    )
@@ -55,44 +54,11 @@ ui <- dashboardPage(
       tabItem(
         tabName = 'home',
         title = 'Welcome to the Patent Analytics dashboard!',
-        wellPanel(
-          p('Please wait as the dataset loads', id = 'waiting_text'),
-          withSpinner(
-            uiOutput("load_dataset")
-          )
-        )
-      ),
-      tabItem(
-        tabName = 'competition',
-        HTML('<p style="font-size:18pt; color:black;">Competition Stuff Goes Here</p>'),
-        tabsetPanel(
-          tabPanel(
-            title = 'Inputs',
-            wellPanel(
-              p('Inputs'),
-              selectInput(
-                inputId = 'cpc_input',
-                label = 'Please select CPC code:',
-                choices = choices,#c('Option 1','Option 2','Option 3'),
-                multiple = T,
-                width = '200px'
-              ),
-              actionButton(
-                inputId = 'cpc_button',
-                label = 'Search',
-                icon = icon('search')
-              )
-            )
-          ),
-          
-          tabPanel(
-            title = 'Outputs',
-            wellPanel(
-              withSpinner(
-                textOutput(outputId = 'output_text')
-                #DT::dataTableOutput(outputId = 'competition_table')
-              )
-            )
+        fluidRow(
+          column(
+            width = 12,
+            h2('Welcome to our Patent Analytics Dashboard!'),
+            p('This dashboard provides insights into patent data. Please use the tabs on the left to navigate to our analyses.')
           )
         )
       ),
