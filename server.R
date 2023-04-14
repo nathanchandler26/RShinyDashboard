@@ -64,6 +64,14 @@ server <- function(input, output, session) {
     
     # Filter the cpc codes
     dt <- cpc %>% filter(grepl(pattern = paste(input$market_cpcs_input, sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T))
+    
+    keep <- cpc %>% 
+      filter(grepl(pattern = paste(input$market_cpcs_input, sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T)) %>% 
+      select(patent_id) %>% 
+      unique()
+    
+    dt <- dt %>% filter(patent_id %in% keep$patent_id)
+    
     dt <- merge(dt, patent, by = 'patent_id')
     dt <- merge(dt, assignee, by = 'patent_id') 
     dt <- merge(dt,location,by = 'location_id')
