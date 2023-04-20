@@ -14,3 +14,9 @@ patent <- read_feather('data/g_patent_2012_2021.feather')
 cpc <- fread('data/g_cpc_current_2012_2021.csv')
 cpc$patent_id <- as.character(cpc$patent_id)
 
+load("data/unique_group.Rdata")
+cpc_class <- substr(unique_group, 1, 3)
+cpc_class<-unique(cpc_class)
+choices <- sapply(unique_group, sub, pattern = "/.*", replacement = "")
+
+subclass <- unique_group
