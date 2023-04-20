@@ -7,10 +7,10 @@ library(fresh)
 # This creates a web page -- organized into rows and columns 
 # There are 12 parts in each row
 
-# load("data/unique_cpc_group.Rdata")
-# choices <- unique_cpc_group
-# cpc_class <- substr(choices, 1, 3)
-# cpc_class<-unique(cpc_class)
+load("data/unique_cpc_group.Rdata")
+choices <- unique_cpc_group
+cpc_class <- substr(choices, 1, 3)
+cpc_class<-unique(cpc_class)
 # load("data/unique_cpc_group_and_subclass.Rdata")
 # subclass <- paste(unique_cpc_group_and_subclass$cpc_group,'/',unique_cpc_group_and_subclass$sub_group)
 
@@ -88,13 +88,7 @@ ui <- dashboardPage(
                 multiple = T,
                 width = '200px'
               ),
-              selectInput(
-                inputId = 'cpc_group_labels_cpcs_input',
-                label = 'CPC Group:',
-                choices = cpc_class,
-                multiple = T,
-                width = '200px'
-              ),
+              textInput(inputId = "CPC_subgroup", label = "CPC Subgroup:"),
               actionButton(
                 inputId = 'generate_competitive_positioning',
                 label = HTML('Generate Top 10 Table'),
