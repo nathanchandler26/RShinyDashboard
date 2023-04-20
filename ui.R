@@ -116,12 +116,20 @@ ui <- dashboardPage(
             title = 'Select CPC(s)',
             wellPanel(
               selectInput(
-                inputId = 'market_cpcs_input',
-                label = 'Please select CPC code(s):',
+                inputId = 'class_cpcs_input_2',
+                label = 'CPC Class:',
+                choices = cpc_class,
+                multiple = T,
+                width = '200px'
+              ),
+              selectInput(
+                inputId = 'market_cpcs_input_2',
+                label = 'CPC Subclass:',
                 choices = choices,
                 multiple = T,
                 width = '200px'
               ),
+              textInput(inputId = "CPC_subgroup_2", label = "CPC Subgroup:"),
               actionButton(
                 inputId = 'number_per_state',
                 label = HTML('Generate State Chart'),
@@ -143,3 +151,4 @@ ui <- dashboardPage(
     )
   )
 )
+

@@ -13,7 +13,8 @@ server <- function(input, output, session) {
   
   observeEvent(input$generate_competitive_positioning, {
     # Filter the cpc codes
-    dt <- cpc %>% filter(grepl(pattern = paste(input$market_cpcs_input, sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T))
+    print(coalesce(input$CPC_subgroup, input$market_cpcs_input,input$class_cpcs_input))
+    dt <- cpc %>% filter(grepl(pattern = paste(coalesce(input$CPC_subgroup, input$market_cpcs_input,input$class_cpcs_input), sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T))
     dt <- merge(dt, patent, by = 'patent_id')
     dt <- merge(dt, assignee, by = 'patent_id')
   
@@ -60,13 +61,17 @@ server <- function(input, output, session) {
   
   # States plot
   state_data <- reactive({
-    req(input$market_cpcs_input)
+      # print("entering state data")
+      # print(paste(input$market_cpcs_input_2))
+      # req(coalesce(input$CPC_subgroup_2, input$market_cpcs_input_2,input$class_cpcs_input_2))
+      # print("after req")
+
     
     # Filter the cpc codes
-    dt <- cpc %>% filter(grepl(pattern = paste(input$market_cpcs_input, sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T))
-    
+    dt <- cpc %>% filter(grepl(pattern = paste(coalesce(input$CPC_subgroup_2, input$market_cpcs_input_2,input$class_cpcs_input_2), sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T))
+    print("after dt")
     keep <- cpc %>% 
-      filter(grepl(pattern = paste(input$market_cpcs_input, sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T)) %>% 
+      filter(grepl(pattern = paste(coalesce(input$CPC_subgroup_2, input$market_cpcs_input_2,input$class_cpcs_input_2), sep = '', collapse = '|'), x = cpc$cpc_group,ignore.case = T)) %>% 
       select(patent_id) %>% 
       unique()
     
@@ -107,7 +112,7 @@ server <- function(input, output, session) {
       title = 'Patents Granted by State',
       geo = g
     )
-
+    
     print("rendering states plot")
     output$state_chart_plot <- renderPlotly(fig)
   })
