@@ -8,8 +8,6 @@ library(bslib)
 library(feather)
 library(DT)
 
-load("data/unique_cpc_group.Rdata")
-choices <- unique_cpc_group
 assignee <- read_feather('data/g_assignee_disambiguated_2012_2021.feather')
 location <- read_feather('data/g_location_disambiguated_2012_2021.feather')
 patent <- read_feather('data/g_patent_2012_2021.feather')

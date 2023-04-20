@@ -9,7 +9,8 @@ library(fresh)
 
 load("data/unique_cpc_group.Rdata")
 choices <- unique_cpc_group
-
+cpc_class <- substr(choices, 1, 3)
+cpc_class<-unique(cpc_class)
 
 # Create the theme
 mytheme <- create_theme(
@@ -70,8 +71,22 @@ ui <- dashboardPage(
             title = 'Select CPC(s)',
             wellPanel(
               selectInput(
+                inputId = 'class_cpcs_input',
+                label = 'CPC Class:',
+                choices = new_variable,
+                multiple = T,
+                width = '200px'
+              ),
+              selectInput(
                 inputId = 'market_cpcs_input',
-                label = 'Please select CPC code(s):',
+                label = 'CPC Subclass:',
+                choices = choices,
+                multiple = T,
+                width = '200px'
+              ),
+              selectInput(
+                inputId = 'cpc_group_labels_cpcs_input',
+                label = 'CPC Group:',
                 choices = choices,
                 multiple = T,
                 width = '200px'
